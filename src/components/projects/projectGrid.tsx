@@ -70,7 +70,7 @@ const Card3D: React.FC<Card3DProps> = ({ project, index }) => {
           </motion.div>
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent" />
 
         <div className="absolute inset-0 p-6 flex flex-col justify-end">
           <motion.div

@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, Loader2, Mail, MapPin } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import emailjs from "emailjs-com";
 
 type FormFields = "name" | "email" | "message";
 
@@ -40,21 +41,34 @@ export default function ContactSection() {
   };
 
   const inputClasses = (field: FormFields) =>
-    `w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black transition duration-200 ${
-      focusedField === field ? "ring-2 ring-black" : ""
-    }`;
+    `w-full px-4 py-2 bg-black border border-green-400 text-green-400 placeholder-green-600 rounded-md
+   focus:outline-none focus:ring-2 transition duration-200 ${
+     focusedField === field ? "ring-2 ring-green-500" : ""
+   }`;
 
   const sendEmail = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    try {
-      // Dummy delay to simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+    const { name, email, message } = formData;
 
+    try {
+      const result = await emailjs.send(
+        "service_bc74dzm",
+        "template_3m2w0ys",
+        {
+          from_name: name,
+          reply_to: email,
+          message,
+        },
+        "aCVtNmJKe8AGkaAaf"
+      );
+
+      console.log("Email sent:", result.text);
       setSubmitted(true);
       toast.success("Message sent successfully!");
     } catch (error) {
+      console.error("Email failed:", error);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -66,13 +80,10 @@ export default function ContactSection() {
     setSubmitted(false);
   };
 
-  // Your original JSX code follows, unchanged — just plug the above hooks in where needed
-
   return (
     <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-          {/* LEFT COLUMN OMITTED FOR BREVITY — NO CHANGES NEEDED */}
           {/* Left column - Text content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -289,10 +300,7 @@ export default function ContactSection() {
                       onBlur={handleBlur}
                       placeholder="Jacob Perez"
                       required
-                      className={`
-              w-full px-4 py-2 bg-black border border-green-400 text-green-400 placeholder-green-600 rounded-md
-              focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200
-            `}
+                      className={inputClasses("name")}
                     />
                   </div>
 
@@ -313,10 +321,7 @@ export default function ContactSection() {
                       onBlur={handleBlur}
                       placeholder="you@example.com"
                       required
-                      className={`
-              w-full px-4 py-2 bg-black border border-green-400 text-green-400 placeholder-green-600 rounded-md
-              focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200
-            `}
+                      className={inputClasses("email")}
                     />
                   </div>
 
@@ -337,10 +342,7 @@ export default function ContactSection() {
                       placeholder="Message me about anything..."
                       required
                       rows={5}
-                      className={`
-              w-full px-4 py-2 bg-black border border-green-400 text-green-400 placeholder-green-600 rounded-md resize-none
-              focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200
-            `}
+                      className={`${inputClasses("message")} resize-none`}
                     />
                   </div>
 
