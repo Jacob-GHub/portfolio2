@@ -21,7 +21,7 @@ export default function Header({ isMobile }: HeaderProps) {
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
-    // { name: 'Contact', href: '#contact' }
+    { name: "Contact", href: "#contact" },
   ];
 
   useEffect(() => {
@@ -29,17 +29,23 @@ export default function Header({ isMobile }: HeaderProps) {
       setScrolled(window.scrollY > 20);
 
       const sections = navItems.map((item) => item.href.substring(1));
-      const currentSection = sections.find((section) => {
+      let closestSection = "";
+      let minDistance = Infinity;
+
+      sections.forEach((section) => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom > 100;
+          const distance = Math.abs(rect.top);
+          if (rect.top <= window.innerHeight / 2 && distance < minDistance) {
+            minDistance = distance;
+            closestSection = section;
+          }
         }
-        return false;
       });
 
-      if (currentSection) {
-        setActiveSection(currentSection);
+      if (closestSection) {
+        setActiveSection(closestSection);
       }
     };
 
@@ -83,7 +89,7 @@ export default function Header({ isMobile }: HeaderProps) {
               <span className="bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
                 Jacob
               </span>
-              <span className="text-gray-500"> Perez</span>
+              <span className="text-green-400"> Perez</span>
               <motion.span
                 className="absolute -bottom-1 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500"
                 initial={{ width: 0 }}
@@ -112,45 +118,39 @@ export default function Header({ isMobile }: HeaderProps) {
                       <motion.a
                         href={item.href}
                         className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center
-                          ${
-                            activeSection === item.href.substring(1)
-                              ? "text-white"
-                              : "text-gray-700 hover:text-black"
-                          }
-                        `}
+        ${
+          item.name === "Contact"
+            ? "bg-black text-white shadow-md ml-3 hover:gap-2"
+            : activeSection === item.href.substring(1)
+            ? "text-white"
+            : "text-gray-700 hover:text-black"
+        }
+      `}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={item.onClick}
                       >
                         {/* Pill background for active item */}
-                        {activeSection === item.href.substring(1) && (
-                          <motion.span
-                            className="absolute inset-0 bg-black rounded-full -z-10"
-                            layoutId="navbar-active-pill"
-                            transition={{
-                              type: "spring",
-                              stiffness: 300,
-                              damping: 30,
-                            }}
-                          />
-                        )}
+                        {item.name !== "Contact" &&
+                          activeSection === item.href.substring(1) && (
+                            <motion.span
+                              className="absolute inset-0 bg-black rounded-full -z-10"
+                              layoutId="navbar-active-pill"
+                              transition={{
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 30,
+                              }}
+                            />
+                          )}
+
                         {item.name}
-                        {item.icon}
+                        {item.name === "Contact" && (
+                          <ChevronRight size={14} className="ml-1" />
+                        )}
                       </motion.a>
                     </li>
                   ))}
-                  <motion.a
-                    href="#contact"
-                    className="ml-3 bg-black text-white px-5 py-2 rounded-full text-sm font-medium shadow-md flex items-center gap-1 hover:gap-2 transition-all"
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Let's talk
-                    <ChevronRight size={14} />
-                  </motion.a>
                 </ul>
               </nav>
             )}
@@ -211,15 +211,7 @@ export default function Header({ isMobile }: HeaderProps) {
                     y: 0,
                     transition: { delay: 0.25 },
                   }}
-                >
-                  <a
-                    href="#contact"
-                    className="block py-3 px-4 rounded-xl text-lg font-medium bg-black text-white mt-4 text-center"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Let's talk
-                  </a>
-                </motion.li>
+                ></motion.li>
               </ul>
             </motion.nav>
           </motion.div>

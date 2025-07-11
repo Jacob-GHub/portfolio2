@@ -23,9 +23,9 @@ export default function HeroSection() {
       className="pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 text-start items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 text-start items-start">
           {/* Left column - Text content */}
-          <div>
+          <div className="w-full max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export default function HeroSection() {
               </span>
             </motion.div>
 
-            <div className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
               Developing Robust Software For Real-World Problems
             </div>
 
@@ -45,9 +45,9 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-gray-600 text-lg md:text-xl mb-10 max-w-lg"
+              className="text-gray-600 text-base sm:text-lg md:text-xl mb-10 max-w-xl"
             >
-              I develop full-stack applications that prioritize performance,
+              I develop software applications that prioritize performance,
               maintainability, and a seamless user experience.
             </motion.p>
 
@@ -61,7 +61,7 @@ export default function HeroSection() {
                 href="#projects"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-8 py-4 bg-black text-white rounded-full font-medium flex items-center justify-center gap-2 group shadow-sm hover:shadow-md transition-shadow"
+                className="px-8 py-4 bg-black text-center text-white rounded-full font-medium flex items-center justify-center gap-2 group shadow-sm hover:shadow-md transition-shadow"
               >
                 View my work
                 <motion.span
@@ -104,7 +104,7 @@ export default function HeroSection() {
               damping: 20,
               delay: 0.4,
             }}
-            className="relative aspect-square rounded-3xl overflow-hidden shadow-lg bg-black"
+            className=" relative aspect-square w-full max-w-sm sm:max-w-md md:max-w-full rounded-3xl overflow-hidden shadow-lg bg-black "
           >
             <div className="absolute inset-0 p-6 text-green-400 font-mono text-sm z-10">
               <div className="flex flex-col items-start gap-2 h-full">

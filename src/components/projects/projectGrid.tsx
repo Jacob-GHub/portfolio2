@@ -89,10 +89,10 @@ const Card3D: React.FC<Card3DProps> = ({ project, index }) => {
               {project.title}
             </motion.h3>
             <motion.p
-              className="text-gray-300 text-sm mb-4 line-clamp-2"
+              className="text-white text-sm mb-4 font-bold line-clamp-2"
               animate={{
                 y: isHovered ? -3 : 0,
-                opacity: isHovered ? 1 : 0.7,
+                opacity: isHovered ? 1 : 0.3,
                 transition: { type: "spring", stiffness: 100, delay: 0.05 },
               }}
             >
@@ -151,34 +151,36 @@ const Card3D: React.FC<Card3DProps> = ({ project, index }) => {
 // --------- ProjectCardGrid Component ---------
 const ProjectCardGrid: React.FC<ProjectCardGridProps> = ({ projects }) => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="mb-12 text-center">
-        <motion.span
-          className="block mb-3 text-sm font-medium tracking-wider"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          MY WORK
-        </motion.span>
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          Featured Projects
-        </motion.h2>
-      </div>
+    <section id="projects">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="mb-12 text-start">
+          <motion.span
+            className="block mb-3 text-sm font-medium tracking-wider"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            MY WORK
+          </motion.span>
+          <motion.h2
+            className="text-3xl md:text-5xl font-bold mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            Featured Projects
+          </motion.h2>
+        </div>
 
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
+        <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project, index) => (
-          <Card3D key={project.title} project={project} index={index} />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <Card3D key={project.title} project={project} index={index} />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

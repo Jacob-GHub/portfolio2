@@ -62,23 +62,26 @@ export default function AboutSection() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section header */}
-        <div className="mb-16 md:mb-24">
-          <motion.span
-            className="block mb-3 text-sm font-medium tracking-wider"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-          >
-            ABOUT ME
-          </motion.span>
-          <div className="text-3xl md:text-5xl font-bold"> My Background</div>
-        </div>
 
         {/* About content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {/* Left column - Bio */}
           <div className="pr-0 md:pr-6">
+            <div className="mb-6 md:mb-12">
+              <motion.span
+                className="block mb-3 text-sm font-medium tracking-wider"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+              >
+                ABOUT ME
+              </motion.span>
+              <div className="text-3xl md:text-5xl font-bold">
+                {" "}
+                My Background
+              </div>
+            </div>
             <motion.div
               className="space-y-6"
               initial={{ opacity: 0, y: 20 }}
